@@ -25,6 +25,9 @@
   },
   "homepage": "https://github.com/dialexa/knex-plus#readme",
   "nyc": {
+    "exclude": [
+      "lib/test/*"
+    ],
     "extension": [
       ".ts"
     ],
@@ -35,7 +38,7 @@
     "sourceMap": true,
     "instrument": true,
     "cache": true,
-    "all": true
+    "all": false
   },
   "dependencies": {
     "knex": "~0.15.2",
