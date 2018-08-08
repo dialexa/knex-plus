@@ -1,4 +1,7 @@
-# Repository
+# Knex+
+
+[![NPM Version][version-img]][version-url]
+[![Build Status][build-img]][build-url]
 
 This library is meant to serve as an extremely lightweight layer on top of Knex for software developer quality of life purposes.  It's not meant to be extensive, support associations (belongs to, has many), etc.  If you are looking for something like that, please refer to some of the following:
 
@@ -58,3 +61,9 @@ import { AuditableRepository } from 'knex-plus';
 
 const repository = new AuditableRepository(knex, 'users', 'modifiedAt');
 ```
+
+<!-- Badge URLs -->
+[build-img]:https://travis-ci.org/dialexa/knex-plus.svg?branch=master
+[build-url]:https://travis-ci.org/dialexa/knex-plus
+[version-img]:https://badge.fury.io/js/%40dialexa%2Fknex-plus.svg
+[version-url]:https://badge.fury.io/js/%40dialexa%2Fknex-plus
