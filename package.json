@@ -12,7 +12,8 @@
   ],
   "scripts": {
     "build": "node_modules/.bin/tsc",
-    "test": "node_modules/.bin/nyc mocha"
+    "test": "node_modules/.bin/nyc mocha",
+    "coverage": "node_modules/.bin/nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
@@ -54,6 +55,7 @@
     "@types/lodash.snakecase": "~4.1.4",
     "@types/mocha": "~5.2.5",
     "chai": "~4.1.2",
+    "coveralls": "~3.0.2",
     "mocha": "~5.2.0",
     "nyc": "~12.0.2",
     "source-map-support": "~0.5.6",

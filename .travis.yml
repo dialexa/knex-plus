@@ -2,3 +2,4 @@ script: npm test
 language: node_js
 node_js:
   - "8"
+after_success: npm run coverage
