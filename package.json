@@ -1,8 +1,15 @@
 {
   "name": "@dialexa/knex-plus",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A lightweight repository library powered by knex",
   "main": "dist/index.js",
+  "keywords": [
+    "node",
+    "knex",
+    "knexjs",
+    "repository",
+    "orm"
+  ],
   "scripts": {
     "build": "node_modules/.bin/tsc",
     "test": "node_modules/.bin/mocha -r ts-node/register lib/**/*.spec.ts"
