@@ -2,6 +2,7 @@
 
 [![NPM Version][version-img]][version-url]
 [![Build Status][build-img]][build-url]
+[![Coverage Status][coverage-img]][coverage-url]
 
 This library is meant to serve as an extremely lightweight layer on top of Knex for software developer quality of life purposes.  It's not meant to be extensive, support associations (belongs to, has many), etc.  If you are looking for something like that, please refer to some of the following:
 
@@ -67,3 +68,5 @@ const repository = new AuditableRepository(knex, 'users', 'modifiedAt');
 [build-url]:https://travis-ci.org/dialexa/knex-plus
 [version-img]:https://badge.fury.io/js/%40dialexa%2Fknex-plus.svg
 [version-url]:https://badge.fury.io/js/%40dialexa%2Fknex-plus
+[coverage-img]:https://coveralls.io/repos/dialexa/relish/badge.svg?branch=master&service=github
+[coverage-url]:https://coveralls.io/github/dialexa/relish?branch=master
