@@ -15,7 +15,7 @@ This library is meant to serve as an extremely lightweight layer on top of Knex 
 The repository class can be initialized like so:
 
 ```javascript
-import { Repository } from 'knex-plus';
+import { Repository } from '@dialexa/knex-plus';
 
 const repository = new Repository(knex, 'users');
 ```
@@ -31,7 +31,7 @@ The repository method signatures [can be found here](https://github.com/dialexa/
 The repository can be initialized with an interface if using typescript for type checking on returned records like so:
 
 ```typescript
-import { Repository } from 'knex-plus';
+import { Repository } from '@dialexa/knex-plus';
 
 interface IUser {
   id?: string,
@@ -50,7 +50,7 @@ const repository = new Repository<IUser>(knex, 'users');
 This library includes a class `AuditableRepository` that will automatically update an `updatedAt` column if desired.  The class constructor is identical to `Repository` and can be initialized like so:
 
 ```javascript
-import { AuditableRepository } from 'knex-plus';
+import { AuditableRepository } from '@dialexa/knex-plus';
 
 const repository = new AuditableRepository(knex, 'users');
 ```
@@ -58,7 +58,7 @@ const repository = new AuditableRepository(knex, 'users');
 If you want to customize the `updatedAt` column, you can do so:
 
 ```javascript
-import { AuditableRepository } from 'knex-plus';
+import { AuditableRepository } from '@dialexa/knex-plus';
 
 const repository = new AuditableRepository(knex, 'users', 'modifiedAt');
 ```
