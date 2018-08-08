@@ -1,1 +1,17 @@
-lib/
+# typescript code
+/lib/
+# lockfile
+yarn.lock
+# code coverage
+/coverage/
+/.nyc_output
+# documentation
+*.md
+# test files
+test.db
+/test
+# code formatting
+.editorconfig
+# configurations
+*.json
+*.yml
