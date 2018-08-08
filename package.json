@@ -1,0 +1,39 @@
+{
+  "name": "repository",
+  "version": "0.1.0",
+  "description": "A lightweight repository library powered by knex",
+  "main": "index.js",
+  "scripts": {
+    "build": "node_modules/.bin/tsc",
+    "test": "node_modules/.bin/mocha -r ts-node/register lib/**/*.spec.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/dialexa/repository.git"
+  },
+  "author": "Luke Gordon <luke@dialexa.com> (https://dialexa.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dialexa/repository/issues"
+  },
+  "homepage": "https://github.com/dialexa/repository#readme",
+  "dependencies": {
+    "knex": "~0.15.2",
+    "lodash.camelcase": "~4.3.0",
+    "lodash.mapkeys": "~4.6.0",
+    "lodash.snakecase": "~4.1.1"
+  },
+  "devDependencies": {
+    "@types/chai": "~4.1.4",
+    "@types/knex": "~0.14.19",
+    "@types/lodash.camelcase": "~4.3.4",
+    "@types/lodash.mapkeys": "~4.6.4",
+    "@types/lodash.snakecase": "~4.1.4",
+    "@types/mocha": "~5.2.5",
+    "chai": "~4.1.2",
+    "mocha": "~5.2.0",
+    "sqlite3": "~4.0.2",
+    "ts-node": "~7.0.0",
+    "typescript": "~3.0.1"
+  }
+}
