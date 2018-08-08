@@ -12,7 +12,7 @@
   ],
   "scripts": {
     "build": "node_modules/.bin/tsc",
-    "test": "node_modules/.bin/mocha -r ts-node/register lib/**/*.spec.ts"
+    "test": "node_modules/.bin/nyc mocha"
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,19 @@
     "url": "https://github.com/dialexa/knex-plus/issues"
   },
   "homepage": "https://github.com/dialexa/knex-plus#readme",
+  "nyc": {
+    "extension": [
+      ".ts"
+    ],
+    "reporter": [
+      "text-summary",
+      "html"
+    ],
+    "sourceMap": true,
+    "instrument": true,
+    "cache": true,
+    "all": true
+  },
   "dependencies": {
     "knex": "~0.15.2",
     "lodash.camelcase": "~4.3.0",
@@ -39,6 +52,8 @@
     "@types/mocha": "~5.2.5",
     "chai": "~4.1.2",
     "mocha": "~5.2.0",
+    "nyc": "~12.0.2",
+    "source-map-support": "~0.5.6",
     "sqlite3": "~4.0.2",
     "ts-node": "~7.0.0",
     "typescript": "~3.0.1"
