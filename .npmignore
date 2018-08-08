@@ -6,12 +6,14 @@ yarn.lock
 /coverage/
 /.nyc_output
 # documentation
-*.md
+CONTRIBUTING.md
+.github/PULL_REQUEST_TEMPLATE.md
 # test files
 test.db
 /test
 # code formatting
 .editorconfig
 # configurations
-*.json
+tsconfig.json
+tslint.json
 *.yml
