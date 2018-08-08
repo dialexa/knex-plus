@@ -1,12 +1,12 @@
-import Knex from 'knex';
-import Repository from './repository';
+import Knex from "knex";
+import Repository from "./repository";
 
 export default class AuditableRepository<T> extends Repository<T> {
   private col;
-  constructor (knex: Knex, table: string, col?: string) {
+  constructor(knex: Knex, table: string, col?: string) {
     super(knex, table);
     // Updated at column
-    this.col = col || 'updatedAt';
+    this.col = col || "updatedAt";
   }
 
   /**
@@ -19,7 +19,7 @@ export default class AuditableRepository<T> extends Repository<T> {
    * @returns true if a database record was updated, false otherwise
    * @throws if a record update violates a database constraint
    */
-  public async update (criteria: object, data: object) : Promise<boolean> {
+  public async update(criteria: object, data: object): Promise<boolean> {
     const updates = Object.assign({}, data, { [this.col]: new Date() });
 
     return super.update(criteria, updates);
@@ -35,7 +35,7 @@ export default class AuditableRepository<T> extends Repository<T> {
    * @returns the # of records updated in the database
    * @throws if a record update violates a database constraint
    */
-  public async updateAll (criteria: object, data: object) : Promise<number> {
+  public async updateAll(criteria: object, data: object): Promise<number> {
     const updates = Object.assign({}, data, { [this.col]: new Date() });
 
     return super.updateAll(criteria, updates);

@@ -6,8 +6,8 @@
  * @copyright Dialexa 2018
  */
 
-import * as Knex from 'knex';
-import { camelCase, snakeCase} from './change-case';
+import * as Knex from "knex";
+import { camelCase, snakeCase} from "./change-case";
 
 export default class Repository<T> {
 
@@ -16,7 +16,7 @@ export default class Repository<T> {
    * @param knex a flexible query builder
    * @param table database table to use for this repository
    */
-  constructor (protected knex: Knex, private table: string) { }
+  constructor(protected knex: Knex, private table: string) { }
 
   /**
    *
@@ -28,9 +28,9 @@ export default class Repository<T> {
    * @returns the created database records
    * @throws if the provided data violates a database constraint
    */
-  public async createAll (data: object, fields?: string[]) : Promise<T[]> {
+  public async createAll(data: object, fields?: string[]): Promise<T[]> {
     const obj = snakeCase(data);
-    const cols = snakeCase(fields || '*');
+    const cols = snakeCase(fields || "*");
 
     const ids = await this.qb.insert(obj);
     const records = await this.where({ id: ids }).select(cols);
@@ -48,7 +48,7 @@ export default class Repository<T> {
    * @returns the created database record
    * @throws if the provided data violates a database constraint
    */
-  public async create (data: object, fields?: string[]) : Promise<T> {
+  public async create(data: object, fields?: string[]): Promise<T> {
     const records = await this.createAll(data, fields);
 
     return records[0];
@@ -62,7 +62,7 @@ export default class Repository<T> {
    *
    * @returns the fields from the database record if found, undefined otherwise
    */
-  public async findBy (criteria: object, fields?: string[]) : Promise<T> {
+  public async findBy(criteria: object, fields?: string[]): Promise<T> {
     const cols = snakeCase(fields);
 
     const record = await this.where(criteria).select(cols).first();
@@ -84,8 +84,14 @@ export default class Repository<T> {
    *
    * @returns a paginated array of database records that match the provided criteria
    */
-  public async list (options?: { criteria?: object, page?: number, pageSize?: number, fields?: String[], orderBy?: String[] }) : Promise<T[]> {
-    const defaults = { criteria: {}, fields: '*', page: 1, pageSize: 25, orderBy: [] };
+  public async list(options?: {
+    criteria?: object,
+    page?: number,
+    pageSize?: number,
+    fields?: string[],
+    orderBy?: string[],
+  }): Promise<T[]> {
+    const defaults = { criteria: {}, fields: "*", page: 1, pageSize: 25, orderBy: [] };
 
     const params = Object.assign({}, defaults, options);
     const { criteria, fields, page, pageSize, orderBy } = params;
@@ -98,14 +104,14 @@ export default class Repository<T> {
       .offset(offset)
       .limit(pageSize);
 
-    orderBy.map(ordering => {
+    orderBy.map((ordering) => {
       const columnName: string = snakeCase(ordering);
-      const direction: string = ordering.startsWith('-') ? 'DESC' : 'ASC';
+      const direction: string = ordering.startsWith("-") ? "DESC" : "ASC";
 
       query.orderBy(columnName, direction);
     });
 
-    return query.map(record => camelCase(record));
+    return query.map((record) => camelCase(record));
   }
 
   /**
@@ -118,7 +124,7 @@ export default class Repository<T> {
    * @returns true if a database record was updated, false otherwise
    * @throws if a record update violates a database constraint
    */
-  public async update (criteria: object, data: object) : Promise<boolean> {
+  public async update(criteria: object, data: object): Promise<boolean> {
     const changes = snakeCase(data);
 
     const updates = await this.where(criteria)
@@ -138,7 +144,7 @@ export default class Repository<T> {
    * @returns the # of records updated in the database
    * @throws if a record update violates a database constraint
    */
-  public async updateAll (criteria: object, data: object) : Promise<number> {
+  public async updateAll(criteria: object, data: object): Promise<number> {
     const changes = snakeCase(data);
 
     return await this.where(criteria).update(changes);
@@ -153,7 +159,7 @@ export default class Repository<T> {
    * @returns true if a database record was deleted, false otherwise
    * @throws if a record deletion violates a database constraint
    */
-  public async destroy (criteria: object) : Promise<boolean> {
+  public async destroy(criteria: object): Promise<boolean> {
     const deletions = await this.where(criteria)
       .limit(1)
       .del();
@@ -170,14 +176,14 @@ export default class Repository<T> {
    * @returns the # of records deleted from the database
    * @throws if a record deletion violates a database constraint
    */
-  public async destroyAll (criteria: object) : Promise<number> {
+  public async destroyAll(criteria: object): Promise<number> {
     return await this.where(criteria).del();
   }
 
   /**
    * @returns a query builder for this repository's table
    */
-  public get qb() : Knex.QueryBuilder {
+  public get qb(): Knex.QueryBuilder {
     return this.knex(this.table);
   }
 
@@ -187,15 +193,18 @@ export default class Repository<T> {
    *
    * @returns a query builder scoped to the provided criteria
    */
-  public where (criteria: object) : Knex.QueryBuilder {
-    let query = this.qb.clone();
+  public where(criteria: object): Knex.QueryBuilder {
+    const query = this.qb.clone();
 
-    Object.keys(criteria).map(key => {
+    Object.keys(criteria).forEach((key) => {
       const column = snakeCase(key);
       const value = criteria[key];
 
-      if (Array.isArray(value)) { query.whereIn(column, value); }
-      else { query.where(column, value); }
+      if (Array.isArray(value)) {
+        query.whereIn(column, value);
+      } else {
+        query.where(column, value);
+      }
     });
 
     return query;

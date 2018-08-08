@@ -1,6 +1,6 @@
 {
   "name": "@dialexa/knex-plus",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "A lightweight repository library powered by knex",
   "main": "dist/index.js",
   "keywords": [
@@ -12,7 +12,9 @@
   ],
   "scripts": {
     "build": "node_modules/.bin/tsc",
+    "lint": "node_modules/.bin/tslint --project ./tsconfig.json lib/*.ts",
     "test": "node_modules/.bin/nyc mocha",
+    "test-ci": "npm run lint && npm test",
     "coverage": "node_modules/.bin/nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
@@ -61,6 +63,8 @@
     "source-map-support": "~0.5.6",
     "sqlite3": "~4.0.2",
     "ts-node": "~7.0.0",
+    "tslint": "~5.11.0",
+    "tslint-sonarts": "~1.7.0",
     "typescript": "~3.0.1"
   }
 }
