@@ -26,6 +26,12 @@ interface IOrganization {
   modifiedAt: Date
 }
 
+// Helper function for clearing the database
+const deleteTables = async () => {
+  await knex.raw('DELETE FROM users');
+  await knex.raw('DELETE FROM organizations');
+}
+
 describe('AuditableRepository', () => {
   before(async () => {
     // Remove any stale data from previous test runs
@@ -47,6 +53,10 @@ describe('AuditableRepository', () => {
       table.timestamp('modified_at').nullable();
     });
   });
+
+  beforeEach(() => deleteTables());
+
+  afterEach(() => deleteTables());
 
   after(() => knex.destroy());
 
@@ -102,8 +112,8 @@ describe('AuditableRepository', () => {
 
       const criteria = { role };
 
-      const result = await repository.update(criteria, { role: 'sales' });
-      expect(result).to.be.true;
+      const result = await repository.updateAll(criteria, { role: 'sales' });
+      expect(result).to.equal(25);
 
       const records = await knex('users');
       records.map(record => expect(camelCase(record).updatedAt).to.not.be.null);
@@ -112,17 +122,19 @@ describe('AuditableRepository', () => {
     it('should update a custom updatedAt column', async () => {
       const repository = new AuditableRepository<IOrganization>(knex, 'organizations', 'modifiedAt');
 
-      const name = 'Dialexa';
       const city = 'Dallas';
 
-      const org = await repository.create({ name, city });
+      for (let loop = 0; loop < 25; loop++) {
+        const name = `Organization #${loop + 1}`;
 
-      expect(org.modifiedAt).to.be.null;
+        const org = await repository.create({ name, city });
+        expect(org.modifiedAt).to.be.null;
+      }
 
       const criteria = { city };
 
-      const result = await repository.update(criteria, { city: 'Austin' });
-      expect(result).to.be.true;
+      const result = await repository.updateAll(criteria, { city: 'Austin' });
+      expect(result).to.equal(25);
 
       const records = await knex('organizations');
       records.map(record => expect(camelCase(record).modifiedAt).to.not.be.null);
