@@ -8,7 +8,7 @@ This library is meant to serve as an extremely lightweight layer on top of Knex 
 
 * [http://docs.sequelizejs.com/](http://docs.sequelizejs.com/)
 * [http://bookshelfjs.org/](http://bookshelfjs.org/)
-* [https://github.com/typeorm/typeorm](https://github.com/typeorm/typeorm)
+* [http://typeorm.io/#/](http://typeorm.io/#/)
 
 ## Basic Usage
 
