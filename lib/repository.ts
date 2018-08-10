@@ -7,6 +7,8 @@
  */
 
 import * as Knex from "knex";
+import get from "lodash.get";
+
 import { camelCase, snakeCase} from "./change-case";
 import { IRepository } from "./interfaces";
 
@@ -18,8 +20,15 @@ export default class Repository<T> implements IRepository<T> {
     const obj = snakeCase(data);
     const cols = snakeCase(fields || "*");
 
-    const ids = await this.qb.insert(obj);
-    const records = await this.where({ id: ids }).select(cols);
+    let records = [];
+    const dialect = get(this.knex, ['client', 'config', 'dialect'], 'sqlite3');
+
+    if (dialect === 'sqlite3') {
+      const ids = await this.qb.insert(obj);
+      records = await this.where({ id: ids }).select(cols);
+    } else {
+      records = await this.qb.insert(obj, cols);
+    }
 
     return camelCase(records);
   }

@@ -14,7 +14,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+const lodash_get_1 = __importDefault(require("lodash.get"));
 const change_case_1 = require("./change-case");
 class Repository {
     constructor(knex, table) {
@@ -25,8 +29,15 @@ class Repository {
         return __awaiter(this, void 0, void 0, function* () {
             const obj = change_case_1.snakeCase(data);
             const cols = change_case_1.snakeCase(fields || "*");
-            const ids = yield this.qb.insert(obj);
-            const records = yield this.where({ id: ids }).select(cols);
+            let records = [];
+            const dialect = lodash_get_1.default(this.knex, ['client', 'config', 'dialect'], 'sqlite3');
+            if (dialect === 'sqlite3') {
+                const ids = yield this.qb.insert(obj);
+                records = yield this.where({ id: ids }).select(cols);
+            }
+            else {
+                records = yield this.qb.insert(obj, cols);
+            }
             return change_case_1.camelCase(records);
         });
     }

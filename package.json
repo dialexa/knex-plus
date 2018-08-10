@@ -46,6 +46,7 @@
   "dependencies": {
     "knex": "~0.15.2",
     "lodash.camelcase": "~4.3.0",
+    "lodash.get": "~4.4.2",
     "lodash.mapkeys": "~4.6.0",
     "lodash.snakecase": "~4.1.1"
   },
