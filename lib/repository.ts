@@ -19,10 +19,11 @@ export default class Repository<T> implements IRepository<T> {
   public async createAll(data: object, fields?: string[]): Promise<T[]> {
     const obj = snakeCase(data);
     const cols = snakeCase(fields || "*");
-
     let records = [];
-    const dialect = get(this.knex, ['client', 'config', 'client'], 'sqlite3');
-    if (dialect === 'sqlite3') {
+
+    const dialect = get(this.knex, ["client", "config", "client"], "sqlite3");
+
+    if (dialect === "sqlite3") {
       const ids = await this.qb.insert(obj);
       records = await this.where({ id: ids }).select(cols);
     } else {
