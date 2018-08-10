@@ -1,6 +1,6 @@
 {
   "name": "@dialexa/knex-plus",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "A lightweight repository library powered by knex",
   "main": "dist/index.js",
   "keywords": [

@@ -1,4 +1,11 @@
 "use strict";
+/**
+ * @file
+ * A flexible & lightweight repository class powered by Knex
+ *
+ * @author Luke Gordon <luke@dialexa.com>
+ * @copyright Dialexa 2018
+ */
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
