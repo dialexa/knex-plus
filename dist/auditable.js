@@ -16,18 +16,8 @@ class AuditableRepository extends repository_1.default {
     constructor(knex, table, col) {
         super(knex, table);
         // Updated at column
-        this.col = col || 'updatedAt';
+        this.col = col || "updatedAt";
     }
-    /**
-     *
-     * Updates the first database record that matches the provided criteria
-     *
-     * @param criteria the database record being updated must satisfy
-     * @param data changes to apply to the matching database record
-     *
-     * @returns true if a database record was updated, false otherwise
-     * @throws if a record update violates a database constraint
-     */
     update(criteria, data) {
         const _super = name => super[name];
         return __awaiter(this, void 0, void 0, function* () {
@@ -35,16 +25,6 @@ class AuditableRepository extends repository_1.default {
             return _super("update").call(this, criteria, updates);
         });
     }
-    /**
-     *
-     * Updates all database records that match the provided criteria
-     *
-     * @param criteria all updated records must satisfy
-     * @param data changes to apply to records that match the provided criteria
-     *
-     * @returns the # of records updated in the database
-     * @throws if a record update violates a database constraint
-     */
     updateAll(criteria, data) {
         const _super = name => super[name];
         return __awaiter(this, void 0, void 0, function* () {

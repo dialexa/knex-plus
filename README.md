@@ -22,7 +22,7 @@ const repository = new Repository(knex, 'users');
 
 The constructor takes a knex object (which can be a **transaction**) and a table name.
 
-The repository method signatures [can be found here](https://github.com/dialexa/repository/blob/master/dist/repository.d.ts)
+The repository method signatures [can be found here](https://github.com/dialexa/repository/blob/master/dist/interfaces.d.ts)
 
 ## Additional
 

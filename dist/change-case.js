@@ -7,13 +7,13 @@ const lodash_camelcase_1 = __importDefault(require("lodash.camelcase"));
 const lodash_mapkeys_1 = __importDefault(require("lodash.mapkeys"));
 const lodash_snakecase_1 = __importDefault(require("lodash.snakecase"));
 const transform = (data, fn) => {
-    if (!data || data === '*') {
+    if (!data || data === "*") {
         return data;
     }
     if (Array.isArray(data)) {
-        return data.map(d => transform(d, fn));
+        return data.map((d) => transform(d, fn));
     }
-    if (typeof data === 'object') {
+    if (typeof data === "object") {
         return lodash_mapkeys_1.default(data, (_, k) => fn(k));
     }
     return fn(data);
