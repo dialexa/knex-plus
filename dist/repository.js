@@ -30,7 +30,7 @@ class Repository {
             const obj = change_case_1.snakeCase(data);
             const cols = change_case_1.snakeCase(fields || "*");
             let records = [];
-            const dialect = lodash_get_1.default(this.knex, ['client', 'config', 'dialect'], 'sqlite3');
+            const dialect = lodash_get_1.default(this.knex, ['client', 'config', 'client'], 'sqlite3');
             if (dialect === 'sqlite3') {
                 const ids = yield this.qb.insert(obj);
                 records = yield this.where({ id: ids }).select(cols);
