@@ -24,6 +24,23 @@ The constructor takes a knex object (which can be a **transaction**) and a table
 
 The repository method signatures [can be found here](https://github.com/dialexa/repository/blob/master/dist/interfaces.d.ts)
 
+## Examples
+
+```javascript
+import { Repository } from '@dialexa/knex-plus';
+// Initialize the repository
+const repository = new Repository(knex, 'users');
+// Create a record
+const data = { email: 'luke@dialexa.com', password: 'password' };
+await repository.create(data);
+// Fetch a record
+const user = await repository.findBy({ email: 'luke@dialexa.com' });
+// Update a record
+await repository.update({ id: user.id }, { password: 'swordfish' });
+// Destroy a record
+await repository.destroy({ id: user.id });
+```
+
 ## Additional
 
 ### Type Checking
