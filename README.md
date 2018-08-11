@@ -31,8 +31,7 @@ import { Repository } from '@dialexa/knex-plus';
 // Initialize the repository
 const repository = new Repository(knex, 'users');
 // Create a record
-const data = { email: 'luke@dialexa.com', password: 'password' };
-await repository.create(data);
+await repository.create({ email: 'luke@dialexa.com', password: 'password' });
 // Fetch a record
 const user = await repository.findBy({ email: 'luke@dialexa.com' });
 // Update a record
