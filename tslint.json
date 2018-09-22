@@ -1,3 +1,10 @@
 {
-  "extends": ["tslint:recommended", "tslint-sonarts"]
+  "extends": ["tslint:recommended", "tslint-sonarts"],
+  "rules": {
+    "no-big-function": false,
+    "no-duplicate-string": false,
+    "no-identical-functions": false,
+    "no-unused-expression": false,
+    "object-literal-sort-keys": false
+  }
 }

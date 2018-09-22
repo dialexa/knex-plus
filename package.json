@@ -1,6 +1,6 @@
 {
   "name": "@dialexa/knex-plus",
-  "version": "0.2.3",
+  "version": "1.0.0",
   "description": "A lightweight repository library powered by knex",
   "main": "dist/index.js",
   "keywords": [
@@ -12,7 +12,7 @@
   ],
   "scripts": {
     "build": "node_modules/.bin/tsc",
-    "lint": "node_modules/.bin/tslint --project ./tsconfig.json lib/*.ts",
+    "lint": "node_modules/.bin/tslint --project ./tsconfig.json lib/**/*.ts",
     "test": "node_modules/.bin/nyc mocha",
     "test-ci": "npm run lint && npm test",
     "coverage": "node_modules/.bin/nyc report --reporter=text-lcov | coveralls"
@@ -48,6 +48,7 @@
     "lodash.camelcase": "~4.3.0",
     "lodash.get": "~4.4.2",
     "lodash.mapkeys": "~4.6.0",
+    "lodash.merge": "^4.6.1",
     "lodash.snakecase": "~4.1.1"
   },
   "devDependencies": {

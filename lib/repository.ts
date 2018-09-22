@@ -8,9 +8,10 @@
 
 import * as Knex from "knex";
 import get from "lodash.get";
+import merge from "lodash.merge";
 
 import { camelCase, snakeCase} from "./change-case";
-import { IRepository } from "./interfaces";
+import { IPaginationParams, IRepository } from "./interfaces";
 
 export default class Repository<T> implements IRepository<T> {
 
@@ -47,16 +48,10 @@ export default class Repository<T> implements IRepository<T> {
     return camelCase(record);
   }
 
-  public async list(options?: {
-    criteria?: object,
-    page?: number,
-    pageSize?: number,
-    fields?: string[],
-    orderBy?: string[],
-  }): Promise<T[]> {
-    const defaults = { criteria: {}, fields: "*", page: 1, pageSize: 25, orderBy: [] };
+  public async list(options?: IPaginationParams): Promise<T[]> {
+    const defaults: IPaginationParams = { criteria: {}, fields: [], page: 1, pageSize: 25, orderBy: [] };
 
-    const params = Object.assign({}, defaults, options);
+    const params = merge({}, defaults, options);
     const { criteria, fields, page, pageSize, orderBy } = params;
 
     const cols = snakeCase(fields);
@@ -67,12 +62,7 @@ export default class Repository<T> implements IRepository<T> {
       .offset(offset)
       .limit(pageSize);
 
-    orderBy.map((ordering) => {
-      const columnName: string = snakeCase(ordering);
-      const direction: string = ordering.startsWith("-") ? "DESC" : "ASC";
-
-      query.orderBy(columnName, direction);
-    });
+    orderBy.map(({ field, direction }) => query.orderBy(field, direction || "ASC"));
 
     return query.map((record) => camelCase(record));
   }
