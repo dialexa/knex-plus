@@ -19,6 +19,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const lodash_get_1 = __importDefault(require("lodash.get"));
+const lodash_merge_1 = __importDefault(require("lodash.merge"));
 const change_case_1 = require("./change-case");
 class Repository {
     constructor(knex, table) {
@@ -30,8 +31,8 @@ class Repository {
             const obj = change_case_1.snakeCase(data);
             const cols = change_case_1.snakeCase(fields || "*");
             let records = [];
-            const dialect = lodash_get_1.default(this.knex, ['client', 'config', 'client'], 'sqlite3');
-            if (dialect === 'sqlite3') {
+            const dialect = lodash_get_1.default(this.knex, ["client", "config", "client"], "sqlite3");
+            if (dialect === "sqlite3") {
                 const ids = yield this.qb.insert(obj);
                 records = yield this.where({ id: ids }).select(cols);
             }
@@ -56,8 +57,8 @@ class Repository {
     }
     list(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            const defaults = { criteria: {}, fields: "*", page: 1, pageSize: 25, orderBy: [] };
-            const params = Object.assign({}, defaults, options);
+            const defaults = { criteria: {}, fields: [], page: 1, pageSize: 25, orderBy: [] };
+            const params = lodash_merge_1.default({}, defaults, options);
             const { criteria, fields, page, pageSize, orderBy } = params;
             const cols = change_case_1.snakeCase(fields);
             const offset = (page - 1) * pageSize;
@@ -65,11 +66,7 @@ class Repository {
                 .select(cols)
                 .offset(offset)
                 .limit(pageSize);
-            orderBy.map((ordering) => {
-                const columnName = change_case_1.snakeCase(ordering);
-                const direction = ordering.startsWith("-") ? "DESC" : "ASC";
-                query.orderBy(columnName, direction);
-            });
+            orderBy.map(({ field, direction }) => query.orderBy(field, direction || "ASC"));
             return query.map((record) => change_case_1.camelCase(record));
         });
     }

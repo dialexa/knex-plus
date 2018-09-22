@@ -6,7 +6,7 @@
  * @copyright Dialexa 2018
  */
 import * as Knex from "knex";
-import { IRepository } from "./interfaces";
+import { IPaginationParams, IRepository } from "./interfaces";
 export default class Repository<T> implements IRepository<T> {
     protected knex: Knex;
     private table;
@@ -14,13 +14,7 @@ export default class Repository<T> implements IRepository<T> {
     createAll(data: object, fields?: string[]): Promise<T[]>;
     create(data: object, fields?: string[]): Promise<T>;
     findBy(criteria: object, fields?: string[]): Promise<T>;
-    list(options?: {
-        criteria?: object;
-        page?: number;
-        pageSize?: number;
-        fields?: string[];
-        orderBy?: string[];
-    }): Promise<T[]>;
+    list(options?: IPaginationParams): Promise<T[]>;
     update(criteria: object, data: object): Promise<boolean>;
     updateAll(criteria: object, data: object): Promise<number>;
     destroy(criteria: object): Promise<boolean>;

@@ -1,4 +1,5 @@
 import * as Knex from "knex";
+import IPaginationParams from "./pagination";
 /**
  * @file
  * A flexible & lightweight repository class powered by Knex
@@ -6,7 +7,7 @@ import * as Knex from "knex";
  * @author Luke Gordon <luke@dialexa.com>
  * @copyright Dialexa 2018
  */
-export interface IRepository<T> {
+export default interface IRepository<T> {
     /**
      * @returns a query builder for this repository's table
      */
@@ -56,13 +57,7 @@ export interface IRepository<T> {
      *
      * @returns a paginated array of database records that match the provided criteria
      */
-    list(options?: {
-        criteria?: object;
-        page?: number;
-        pageSize?: number;
-        fields?: string[];
-        orderBy?: string[];
-    }): Promise<T[]>;
+    list(params?: IPaginationParams): Promise<T[]>;
     /**
      *
      * Updates the first database record that matches the provided criteria
