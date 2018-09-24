@@ -13,12 +13,12 @@ export default class Repository<T> implements IRepository<T> {
     constructor(knex: Knex, table: string);
     createAll(data: object, fields?: string[]): Promise<T[]>;
     create(data: object, fields?: string[]): Promise<T>;
-    findBy(criteria: object, fields?: string[]): Promise<T>;
-    list(options?: IPaginationParams): Promise<T[]>;
-    update(criteria: object, data: object): Promise<boolean>;
-    updateAll(criteria: object, data: object): Promise<number>;
-    destroy(criteria: object): Promise<boolean>;
-    destroyAll(criteria: object): Promise<number>;
+    findBy<S>(criteria: S, fields?: string[]): Promise<T>;
+    list<S>(options?: IPaginationParams<S>): Promise<T[]>;
+    update<S>(criteria: S, data: object): Promise<boolean>;
+    updateAll<S>(criteria: S, data: object): Promise<number>;
+    destroy<S>(criteria: S): Promise<boolean>;
+    destroyAll<S>(criteria: S): Promise<number>;
     readonly qb: Knex.QueryBuilder;
-    where(criteria: object): Knex.QueryBuilder;
+    where(criteria: any): Knex.QueryBuilder;
 }

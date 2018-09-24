@@ -40,7 +40,7 @@ export default class Repository<T> implements IRepository<T> {
     return records[0];
   }
 
-  public async findBy(criteria: object, fields?: string[]): Promise<T> {
+  public async findBy<S>(criteria: S, fields?: string[]): Promise<T> {
     const cols = snakeCase(fields);
 
     const record = await this.where(criteria).select(cols).first();
@@ -48,8 +48,8 @@ export default class Repository<T> implements IRepository<T> {
     return camelCase(record);
   }
 
-  public async list(options?: IPaginationParams): Promise<T[]> {
-    const defaults: IPaginationParams = { criteria: {}, fields: [], page: 1, pageSize: 25, orderBy: [] };
+  public async list<S>(options?: IPaginationParams<S>): Promise<T[]> {
+    const defaults: IPaginationParams<S> = { criteria: null, fields: [], page: 1, pageSize: 25, orderBy: [] };
 
     const params = merge({}, defaults, options);
     const { criteria, fields, page, pageSize, orderBy } = params;
@@ -67,7 +67,7 @@ export default class Repository<T> implements IRepository<T> {
     return query.map((record) => camelCase(record));
   }
 
-  public async update(criteria: object, data: object): Promise<boolean> {
+  public async update<S>(criteria: S, data: object): Promise<boolean> {
     const changes = snakeCase(data);
 
     const updates = await this.where(criteria)
@@ -77,13 +77,13 @@ export default class Repository<T> implements IRepository<T> {
     return !!updates;
   }
 
-  public async updateAll(criteria: object, data: object): Promise<number> {
+  public async updateAll<S>(criteria: S, data: object): Promise<number> {
     const changes = snakeCase(data);
 
     return await this.where(criteria).update(changes);
   }
 
-  public async destroy(criteria: object): Promise<boolean> {
+  public async destroy<S>(criteria: S): Promise<boolean> {
     const deletions = await this.where(criteria)
       .limit(1)
       .del();
@@ -91,7 +91,7 @@ export default class Repository<T> implements IRepository<T> {
     return !!deletions;
   }
 
-  public async destroyAll(criteria: object): Promise<number> {
+  public async destroyAll<S>(criteria: S): Promise<number> {
     return await this.where(criteria).del();
   }
 
@@ -99,8 +99,9 @@ export default class Repository<T> implements IRepository<T> {
     return this.knex(this.table);
   }
 
-  public where(criteria: object): Knex.QueryBuilder {
+  public where(criteria: any): Knex.QueryBuilder {
     const query = this.qb.clone();
+    if (!criteria) { return query; }
 
     Object.keys(criteria).forEach((key) => {
       const column = snakeCase(key);

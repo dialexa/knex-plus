@@ -46,7 +46,7 @@ export default interface IRepository<T> {
    *
    * @returns the fields from the database record if found, undefined otherwise
    */
-  findBy(criteria: object, fields?: string[]): Promise<T>;
+  findBy<S>(criteria: S, fields?: string[]): Promise<T>;
 
   /**
    *
@@ -62,7 +62,7 @@ export default interface IRepository<T> {
    *
    * @returns a paginated array of database records that match the provided criteria
    */
-  list(params?: IPaginationParams): Promise<T[]>;
+  list<S>(params?: IPaginationParams<S>): Promise<T[]>;
 
   /**
    *
@@ -74,7 +74,7 @@ export default interface IRepository<T> {
    * @returns true if a database record was updated, false otherwise
    * @throws if a record update violates a database constraint
    */
-  update(criteria: object, data: object): Promise<boolean>;
+  update<S>(criteria: S, data: object): Promise<boolean>;
 
   /**
    *
@@ -86,7 +86,7 @@ export default interface IRepository<T> {
    * @returns the # of records updated in the database
    * @throws if a record update violates a database constraint
    */
-  updateAll(criteria: object, data: object): Promise<number>;
+  updateAll<S>(criteria: S, data: object): Promise<number>;
 
   /**
    *
@@ -97,7 +97,7 @@ export default interface IRepository<T> {
    * @returns true if a database record was deleted, false otherwise
    * @throws if a record deletion violates a database constraint
    */
-  destroy(criteria: object): Promise<boolean>;
+  destroy<S>(criteria: S): Promise<boolean>;
 
   /**
    *
@@ -108,7 +108,7 @@ export default interface IRepository<T> {
    * @returns the # of records deleted from the database
    * @throws if a record deletion violates a database constraint
    */
-  destroyAll(criteria: object): Promise<number>;
+  destroyAll<S>(criteria: S): Promise<number>;
 
   /**
    *
@@ -116,5 +116,5 @@ export default interface IRepository<T> {
    *
    * @returns a query builder scoped to the provided criteria
    */
-  where(criteria: object): Knex.QueryBuilder;
+  where(criteria: any): Knex.QueryBuilder;
 }

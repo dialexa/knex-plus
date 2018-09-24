@@ -57,7 +57,7 @@ class Repository {
     }
     list(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            const defaults = { criteria: {}, fields: [], page: 1, pageSize: 25, orderBy: [] };
+            const defaults = { criteria: null, fields: [], page: 1, pageSize: 25, orderBy: [] };
             const params = lodash_merge_1.default({}, defaults, options);
             const { criteria, fields, page, pageSize, orderBy } = params;
             const cols = change_case_1.snakeCase(fields);
@@ -103,6 +103,9 @@ class Repository {
     }
     where(criteria) {
         const query = this.qb.clone();
+        if (!criteria) {
+            return query;
+        }
         Object.keys(criteria).forEach((key) => {
             const column = change_case_1.snakeCase(key);
             const value = criteria[key];

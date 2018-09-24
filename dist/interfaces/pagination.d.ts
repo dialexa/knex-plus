@@ -6,8 +6,8 @@ import IOrdering from "./ordering";
  * @author Luke Gordon <luke@dialexa.com>
  * @copyright Dialexa 2018
  */
-export default interface IPaginationParams {
-    criteria?: object;
+export default interface IPaginationParams<T> {
+    criteria?: T;
     page?: number;
     pageSize?: number;
     orderBy?: IOrdering[];
