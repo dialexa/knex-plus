@@ -17,3 +17,4 @@ test.db
 tsconfig.json
 tslint.json
 *.yml
+dist/test/*
