@@ -48,6 +48,10 @@ export default class Repository<T> implements IRepository<T> {
     return camelCase(record);
   }
 
+  public async exists<S>(criteria: S): Promise<boolean> {
+    return !!await this.findBy<S>(criteria);
+  }
+
   public async list<S>(options?: IPaginationParams<S>): Promise<T[]> {
     const defaults: IPaginationParams<S> = { criteria: null, fields: [], page: 1, pageSize: 25, orderBy: [] };
 

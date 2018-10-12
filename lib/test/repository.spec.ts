@@ -131,13 +131,30 @@ describe("Repository", () => {
     });
   });
 
+  describe("exists()", () => {
+    beforeEach(async () => await deleteUsers());
+
+    it("should return true if the record exists", async () => {
+      await createUser();
+      const exists = await repository.exists({ email });
+
+      expect(exists).to.be.true;
+    });
+
+    it("should return false if the record does not exist", async () => {
+      const exists = await repository.exists({ email });
+
+      expect(exists).to.be.false;
+    });
+  });
+
   describe("list()", () => {
     before(async () => {
       await deleteUsers();
 
       // Create a few users
       for (let loop = 0; loop < 15; loop++) {
-        ["admin", "customer"].map(async (userRole) => {
+        ["admin", "customer"].forEach(async (userRole) => {
           await createUser({ email: `luke+${userRole}+${loop + 1}@dialexa.com`, role: userRole });
         });
       }
@@ -149,7 +166,7 @@ describe("Repository", () => {
       const criteria = { role: "admin" };
       const users = await repository.list({ criteria });
 
-      users.map((user) => expect(user.role).to.equal("admin"));
+      users.forEach((user) => expect(user.role).to.equal("admin"));
     });
 
     it("should default to the first page and 25 users", async () => {
@@ -174,8 +191,9 @@ describe("Repository", () => {
     it("should only return the specified fields", async () => {
       const users = await repository.list({ fields: ["id"] });
 
-      users.map((user) => {
+      users.forEach((user) => {
         const keys = Object.keys(user);
+
         expect(keys.length).to.equal(1);
         expect(keys).to.include("id");
       });

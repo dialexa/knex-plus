@@ -49,6 +49,15 @@ export default interface IRepository<T> {
   findBy<S>(criteria: S, fields?: string[]): Promise<T>;
 
   /**
+   * Determines if a record with the specified criteria exists
+   *
+   * @param criteria a database record must satisfy
+   *
+   * @returns true if at least 1 database record matches the provided criteria, false otherwise
+   */
+  exists<S>(criteria: S): Promise<boolean>;
+
+  /**
    *
    * Returns a paginated array of database records that match the given criteria
    *
