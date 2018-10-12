@@ -14,6 +14,7 @@ export default class Repository<T> implements IRepository<T> {
     createAll(data: object, fields?: string[]): Promise<T[]>;
     create(data: object, fields?: string[]): Promise<T>;
     findBy<S>(criteria: S, fields?: string[]): Promise<T>;
+    exists<S>(criteria: S): Promise<boolean>;
     list<S>(options?: IPaginationParams<S>): Promise<T[]>;
     update<S>(criteria: S, data: object): Promise<boolean>;
     updateAll<S>(criteria: S, data: object): Promise<number>;

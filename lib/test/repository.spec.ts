@@ -131,6 +131,23 @@ describe("Repository", () => {
     });
   });
 
+  describe("exists()", () => {
+    beforeEach(async () => await deleteUsers());
+
+    it("should return true if the record exists", async () => {
+      await createUser();
+      const exists = await repository.exists({ email });
+
+      expect(exists).to.be.true;
+    });
+
+    it("should return false if the record does not exist", async () => {
+      const exists = await repository.exists({ email });
+
+      expect(exists).to.be.false;
+    });
+  });
+
   describe("list()", () => {
     before(async () => {
       await deleteUsers();

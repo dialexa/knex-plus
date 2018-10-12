@@ -55,6 +55,11 @@ class Repository {
             return change_case_1.camelCase(record);
         });
     }
+    exists(criteria) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return !!(yield this.findBy(criteria));
+        });
+    }
     list(options) {
         return __awaiter(this, void 0, void 0, function* () {
             const defaults = { criteria: null, fields: [], page: 1, pageSize: 25, orderBy: [] };
